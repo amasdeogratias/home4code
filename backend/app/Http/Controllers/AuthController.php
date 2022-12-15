@@ -71,7 +71,7 @@ class AuthController extends Controller
                 $token = ($user)->createToken('token')->plainTextToken;
                 $cookie = cookie('jwt', $token, 60*24); //store token in cookie for 1 day
                 return response()->json([
-                    'message'=>'login successfully...'
+                    'message'=>'user login successfully'
                 ])->withCookie($cookie);
             }else {
                 return response()->json([
@@ -82,6 +82,12 @@ class AuthController extends Controller
         }catch(\Exception $e){
             return response()->json(['error'=>'Login failed, Check your username and password and try again'],500);
         }
+    }
+
+    //return authenticated user
+    public function getAuth()
+    {
+        return Auth::user();
     }
 
 }
