@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    function register(Request $request)
+    //user register function
+    public function register(Request $request)
     {
         //validate data
         $validator = Validator::make($request->all(), [
@@ -44,4 +46,42 @@ class AuthController extends Controller
             return response()->json(['error'=>$e->getMessage()],500);
         }
     }
+
+    //user login function
+    public function login(Request $request)
+    {
+        $credentials = $request->only(['email', 'password']); //request only two fields from user table
+        //make request validation
+        $validator = Validator::make($credentials, [
+            'email' => 'required|email',
+            'password' => 'required|string'
+        ]);
+
+        if($validator->fails()){ //if validator fails return error
+            return response()->json(['validation error' => $validator->errors()->toJson()],422);
+        }
+
+        try{
+
+            $user = User::where('email', $request->email)->first();
+
+            if($user && Hash::check($request->password, $user->password)){
+                //return authentication tokens with cookie
+
+                $token = ($user)->createToken('token')->plainTextToken;
+                $cookie = cookie('jwt', $token, 60*24); //store token in cookie for 1 day
+                return response()->json([
+                    'message'=>'login successfully...'
+                ])->withCookie($cookie);
+            }else {
+                return response()->json([
+                    'message' => 'Incorrect username or password',
+                    'Status'  => 500
+                ]);
+            }
+        }catch(\Exception $e){
+            return response()->json(['error'=>'Login failed, Check your username and password and try again'],500);
+        }
+    }
+
 }
