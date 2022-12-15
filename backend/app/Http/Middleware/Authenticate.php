@@ -28,10 +28,12 @@ class Authenticate extends Middleware
              * set key = Authorization
              * value = Bearer.token
              */
-            $request->headers->set('Authorization', 'Bearer'. $jwt);
+            $request->headers->set('Authorization', 'Bearer '. $jwt);
         }
 
         $this->authenticate($request, $guards);
         return $next($request);
     }
+
+    
 }

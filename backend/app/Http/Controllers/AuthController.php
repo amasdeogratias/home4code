@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Cookie;
 
 class AuthController extends Controller
 {
@@ -88,6 +89,15 @@ class AuthController extends Controller
     public function getAuth()
     {
         return Auth::user();
+    }
+
+    //logout function
+    public function logout()
+    {
+        $cookie = Cookie::forget('jwt'); //forget the cookie generated during login
+        return response()->json([
+            'message' => 'logout successfully'
+        ])->withCookie($cookie);
     }
 
 }
