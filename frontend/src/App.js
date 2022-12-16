@@ -4,7 +4,8 @@ import './App.css';
 import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
 
 // import login and sign up components
-import Login from './components/login.component'
+import Login from './components/login.component';
+import SignUp from './components/signup-component';
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
             <Routes>
               <Route exact path="/" element= {<Login />}/>
               <Route exact path="/sign-in" element= {<Login />}/>
-              <Route exact path="/sign-up" element= {<Login />}/>
+              <Route exact path="/sign-up" element= {<SignUp />}/>
             </Routes>
           </div>
         </div>
