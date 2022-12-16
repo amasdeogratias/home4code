@@ -1,8 +1,21 @@
-import React, { Component } from 'react'
-export default class SignUp extends Component {
-  render() {
+import React, { useState } from 'react'
+
+const SignUp = () => {
+  
+    // handle form submit
+    const [first_name, setFirstName] = useState('');
+    const [last_name, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('')
+    
+    //create submit function
+    const submit = (e) => {
+      console.log({
+        first_name, last_name, email, password
+      })
+    }
     return (
-      <form>
+      <form onSubmit={submit}>
         <h3>Sign Up</h3>
         <div className="mb-3">
           <label>First name</label>
@@ -10,11 +23,14 @@ export default class SignUp extends Component {
             type="text"
             className="form-control"
             placeholder="First name"
+            onChange={e=>setFirstName(e.target.value)}
           />
         </div>
         <div className="mb-3">
           <label>Last name</label>
-          <input type="text" className="form-control" placeholder="Last name" />
+          <input type="text" className="form-control" placeholder="Last name" 
+          onChange={e=> setLastName(e.target.value)}
+          />
         </div>
         <div className="mb-3">
           <label>Email address</label>
@@ -22,6 +38,7 @@ export default class SignUp extends Component {
             type="email"
             className="form-control"
             placeholder="Enter email"
+            onChange={e => setEmail(e.target.value)}
           />
         </div>
         <div className="mb-3">
@@ -30,6 +47,7 @@ export default class SignUp extends Component {
             type="password"
             className="form-control"
             placeholder="Enter password"
+            onChange={e => setPassword(e.target.value)}
           />
         </div>
         <div className="d-grid">
@@ -42,5 +60,7 @@ export default class SignUp extends Component {
         </p>
       </form>
     )
-  }
+  
 }
+
+export default SignUp;
