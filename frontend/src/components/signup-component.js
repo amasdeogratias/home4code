@@ -9,10 +9,24 @@ const SignUp = () => {
   const [password, setPassword] = useState('')
   
   //create submit function
-  const submit = (e) => {
-    console.log({
-      first_name, last_name, email, password
-    })
+  const submit = async (e) => {
+    e.preventDefault();
+    
+    //define api endpoint for register
+    const response = await fetch('http://localhost/laravel-react/backend/public/api/auth/register', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        first_name,
+        last_name, 
+        email,
+        password
+      })
+    });
+    
+    //display result/content in the console
+    const content = await response.json();
+    console.log(response);
   }
   return (
     <form onSubmit={submit}>
