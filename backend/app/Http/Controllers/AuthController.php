@@ -70,7 +70,7 @@ class AuthController extends Controller
                 //return authentication tokens with cookie
 
                 $token = ($user)->createToken('token')->plainTextToken;
-                $cookie = cookie('jwt', $token, 60*24); //store token in cookie for 1 day
+                $cookie = cookie('jwt', $token, 60*24); //store token in cookie valid for 1 day
                 return response()->json([
                     'message'=>'user login successfully'
                 ])->withCookie($cookie);
