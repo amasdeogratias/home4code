@@ -29,17 +29,16 @@ class AuthController extends Controller
         try
         {
             $users = $request->all();
-            foreach($users['UserDetails'] as $key => $values){
                 User::updateOrCreate(
-                    ['email' => $values['email']], //define index to avoid duplicates
+                    ['email' => $request->email], //define index to avoid duplicates
                 [
-                    'first_name' => $values['first_name'],
-                    'last_name' => $values['last_name'],
-                    'email' => $values['email'],
-                    'password' => Hash::make($values['password']),
+                    'first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
 
                 ]);
-            }
+
             return response()->json([
                 'message'       => 'Users created successfully',
             ], 201);
