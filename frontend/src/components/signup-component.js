@@ -40,7 +40,7 @@ const SignUp = () => {
     //display result/content in the console
     // const content = await response.json();
     // console.log(content)
-    redirect('/sign-in'); //redirect to login after submit
+    redirect('/sign-in'); //redirect to login after  
   }
   
   return (
