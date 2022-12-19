@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   
@@ -8,12 +9,16 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('')
   
+  const redirect = useNavigate(); //redirect function
+  
   //create submit function
   const submit = async (e) => {
     e.preventDefault();
     
+    
+    
     //define api endpoint for register
-    const response = await fetch('http://localhost/laravel-react/backend/public/api/auth/register', {
+     await fetch('http://localhost/laravel-react/backend/public/api/auth/register', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
@@ -24,10 +29,13 @@ const SignUp = () => {
       })
     });
     
+    
+    
     //display result/content in the console
-    const content = await response.json();
-    console.log(response);
+    // const content = await response.json();
+    // console.log(content)
   }
+  redirect('/sign-in'); //redirect to login after submit
   return (
     <form onSubmit={submit}>
       <h3>Sign Up</h3>
