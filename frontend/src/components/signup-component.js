@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const SignUp = () => {
   
@@ -30,12 +31,18 @@ const SignUp = () => {
     });
     
     
-    
+    Swal.fire({
+      title:"Success",
+      text: "Successfully Registered",
+      icon: "success",
+      confirmButtonText: "OK"
+    });
     //display result/content in the console
     // const content = await response.json();
     // console.log(content)
+    redirect('/sign-in'); //redirect to login after submit
   }
-  redirect('/sign-in'); //redirect to login after submit
+  
   return (
     <form onSubmit={submit}>
       <h3>Sign Up</h3>
