@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
-import Swal from 'sweetalert2'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 const Login = () => {
   
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('')
+  const [password, setPassword] = useState('');
+  
+  const redirect = useNavigate(); //redirect function
   
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -26,6 +29,8 @@ const Login = () => {
       icon: "success",
       confirmButtonText: "OK"
     });
+    
+    redirect('/'); //redirect to login after 
   }
   
   return (

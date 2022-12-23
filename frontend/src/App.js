@@ -6,6 +6,7 @@ import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
 // import login and sign up components
 import Login from './components/login.component';
 import SignUp from './components/signup-component';
+import Home from './components/home'
 
 function App() {
   return (
@@ -32,7 +33,7 @@ function App() {
         <div className="auth-wrapper">
           <div className="auth-inner">
             <Routes>
-              <Route exact path="/" element= {<Login />}/>
+              <Route exact path="/" element= {<Home />}/>
               <Route exact path="/sign-in" element= {<Login />}/>
               <Route exact path="/sign-up" element= {<SignUp />}/>
             </Routes>
