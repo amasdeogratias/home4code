@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-const Login = () => {
+const Login = (props) => {
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -12,7 +12,7 @@ const Login = () => {
     e.preventDefault();
     
     //define api endpoint for login
-    await fetch('http://localhost/laravel-react/backend/public/api/auth/login', {
+    const response = await fetch('http://localhost/laravel-react/backend/public/api/auth/login', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       credentials:'include', //get cookie from the backend
@@ -22,15 +22,30 @@ const Login = () => {
       })
     });
     
-    // alert
-    Swal.fire({
-      title:"Success",
-      text: "Login Successfully...",
-      icon: "success",
-      confirmButtonText: "OK"
-    });
+    if(response){
+      const content = await response.json();
+      
+      // alert
+      Swal.fire({
+        title:"Success",
+        text: "Login Successfully...",
+        icon: "success",
+        confirmButtonText: "OK"
+      });
+      
+      redirect('/'); //redirect to login after
+      props.setName(content.name);
+    }else{
+      Swal.fire({
+        title:"warning",
+        text: "Login failed...",
+        icon: "warning",
+        confirmButtonText: "OK"
+      });
+    }
     
-    redirect('/'); //redirect to login after 
+    
+     
   }
   
   return (

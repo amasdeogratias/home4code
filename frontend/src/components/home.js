@@ -1,13 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
-const Home = () => {
-  
-  useEffect(() => {
-
-  });
+const Home = (props) => {
   return (
     <div>
-      
+      {props.name ? 'Hi ' + props.name : 'You are not logged in'}
     </div>
   )
 }
