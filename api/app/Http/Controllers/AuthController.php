@@ -8,6 +8,7 @@ use DB;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Validator;
+use App\Events\LoginHistory;
 
 class AuthController extends Controller
 {
@@ -17,6 +18,7 @@ class AuthController extends Controller
             if(Auth::attempt($request->only('email', 'password'))) {
                 $user = Auth::user();
                 $token = $user->createToken('passport')->accessToken;
+                event(new LoginHistory($user));
 
                 return response([
                     'message' => 'Successfully Login',
