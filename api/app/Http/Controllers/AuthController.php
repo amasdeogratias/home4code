@@ -71,4 +71,9 @@ class AuthController extends Controller
             ], 400);
         }
     }
+
+    public function authUser()
+    {
+        return Auth::user();
+    }
 }

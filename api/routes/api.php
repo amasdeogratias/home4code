@@ -27,3 +27,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/forget_password', [ForgetPasswordController::class, 'forgetPassword']);
 Route::post('/reset_password', [ResetPasswordController::class, 'resetPassword']);
+
+Route::group(["middleware" => 'auth:api'], function() {
+    Route::get('/login-user', [AuthController::class, 'authUser']);
+});
