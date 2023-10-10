@@ -9,6 +9,7 @@ import Register from './components/Register';
 import Home from './common/Home'
 import Navbar from './components/Navbar'
 import Forget from './components/Forget'
+import Profile from './components/Profile'
 
 class App extends Component {
   render() {
@@ -25,6 +26,7 @@ class App extends Component {
                   <Route exact path="/sign-in" element= {<Login />}/>
                   <Route exact path="/sign-up" element= {<Register />}/>
                   <Route exact path="/forget" element= {<Forget/>}/>
+                  <Route exact path="/profile" element= {<Profile/>}/>
                 </Routes>
               </div>
             
