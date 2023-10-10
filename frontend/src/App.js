@@ -8,6 +8,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Home from './common/Home'
 import Navbar from './components/Navbar'
+import Forget from './components/Forget'
 
 class App extends Component {
   render() {
@@ -23,7 +24,7 @@ class App extends Component {
                   <Route exact path="/" element= {<Home />}/>
                   <Route exact path="/sign-in" element= {<Login />}/>
                   <Route exact path="/sign-up" element= {<Register />}/>
-                  <Route exact path="/forget"/>
+                  <Route exact path="/forget" element= {<Forget/>}/>
                 </Routes>
               </div>
             
