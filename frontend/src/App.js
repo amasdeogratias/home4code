@@ -48,8 +48,8 @@ class App extends Component {
               
                 <Routes>
                   <Route exact path="/" element= {<Home />}/>
-                  <Route exact path="/sign-in" element= {<Login />}/>
-                  <Route exact path="/sign-up" element= {<Register />}/>
+                  <Route exact path="/sign-in" element= {<Login user = {this.state.user} setUser={this.setUser} />}/>
+                  <Route exact path="/sign-up" element= {<Register user = {this.state.user} setUser={this.setUser}/>}/>
                   <Route exact path="/forget" element= {<Forget/>}/>
                   <Route exact path="/profile" element= {<Profile user = {this.state.user}/>}/>
                 </Routes>

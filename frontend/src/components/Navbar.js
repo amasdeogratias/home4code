@@ -2,7 +2,43 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 class Navbar extends Component {
+    state = {
+        logout: ''
+    }
+    logout = () => {
+        localStorage.clear();
+        this.props.setUser(null)
+    }
   render() {
+    
+    let buttons;
+    let profile;
+    if(localStorage.getItem('token')){
+      buttons = (
+        <div>
+            <Link className="nav-link" to ="/" onClick={this.logout}>Logout</Link>
+        </div>
+      ) 
+      profile = (
+        <div>
+            <Link className="nav-link" to={'/profile'}>Profile</Link>
+        </div>
+      ) 
+    }else{
+        buttons = (
+            <div>
+                <ul className="navbar-nav ml-auto">
+                    <li className="nav-item">
+                        <Link className="nav-link" to={'/sign-in'}>Login</Link>
+            
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to={'/sign-up'}>Sign up</Link>
+                    </li>
+                </ul>
+            </div>
+          ) 
+    }
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
@@ -18,20 +54,12 @@ class Navbar extends Component {
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to={'/profile'}>Profile</Link>
+                            { profile }
                 
                         </li>
                     </ul>
                     <span className="navbar-text">
-                        <ul className="navbar-nav ml-auto">
-                            <li className="nav-item">
-                                <Link className="nav-link" to={'/sign-in'}>Login</Link>
-                    
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to={'/sign-up'}>Sign up</Link>
-                            </li>
-                        </ul>
+                        { buttons }
                     </span>
                 </div>
             </div>
