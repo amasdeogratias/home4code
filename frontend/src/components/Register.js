@@ -1,20 +1,60 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 class Register extends Component {
+  
+  state = {
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
+    message: '',
+  }
+  
+  registerUser = (event) => {
+    event.preventDefault();
+    const data = {
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password,
+      password_confirmation: this.state.password_confirmation,
+    };
+    axios.post('/register', data)
+    .then((response) => {
+      console.log(response.data);
+      localStorage.setItem('token', response.data.token);
+      this.setState({
+        loggedIn: true
+      })
+      this.props.setUser(response.data.user)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+  
+  
   render() {
+     //if register in redirect to profile
+     if(this.state.loggedIn){
+      return window.location.href = '/profile'
+    }
     return (
       <div>
         <div className="row mt-4">
           <div className="jumbotron col-lg-4 offset-lg-4">
             <h3 className="text-center">Register</h3>
-          <form>
+          <form onSubmit={this.registerUser}>
       <div className="mb-3">
         <label>Full name</label>
         <input
           type="text"
+          name="name"
           className="form-control"
           placeholder="Enter name"
+          required
+          onChange={(e) => {this.setState({name:e.target.value})}}
         />
       </div>
       
@@ -22,24 +62,33 @@ class Register extends Component {
         <label>Email address</label>
         <input
           type="email"
+          name="email"
           className="form-control"
           placeholder="Enter email"
+          required
+          onChange={(e) => {this.setState({email:e.target.value})}}
         />
       </div>
       <div className="mb-3">
         <label>Password</label>
         <input
           type="password"
+          name="password"
           className="form-control"
           placeholder="Enter password"
+          required
+          onChange={(e) => {this.setState({password:e.target.value})}}
         />
       </div>
       <div className="mb-3">
         <label>Confirm Password</label>
         <input
           type="password"
+          name="password_confirmation"
           className="form-control"
           placeholder="Enter password confirmation"
+          required
+          onChange={(e) => {this.setState({password_confirmation:e.target.value})}}
         />
       </div>
       <div className="d-grid">
