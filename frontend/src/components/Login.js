@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2'
 import axios from 'axios'
 
 class Login extends Component {
@@ -25,6 +26,14 @@ class Login extends Component {
     })
     .catch((error) => {
       console.log(error);
+      Swal.fire(
+        {
+        title:"Warning",
+        text: "Incorrect username or password",
+        icon: "error",
+        confirmButtonText: "OK"
+      });
+      
     });
     
   }
