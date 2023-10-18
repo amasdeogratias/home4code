@@ -46,6 +46,10 @@ class Login extends Component {
       return window.location.href='/profile'
     }
     
+    if(localStorage.getItem('token')){
+      return window.location.href='/profile' 
+    }
+    
     return (
       <div>
         <div className="row mt-4">

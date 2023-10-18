@@ -40,6 +40,10 @@ class Register extends Component {
      if(this.state.loggedIn){
       return window.location.href = '/profile'
     }
+    
+    if(localStorage.getItem('token')){
+      return window.location.href='/profile' 
+    }
     return (
       <div>
         <div className="row mt-4">

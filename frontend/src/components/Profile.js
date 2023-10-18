@@ -9,6 +9,10 @@ class Profile extends Component {
       name = this.props.user.name
       email = this.props.user.email
     }
+    
+    if(!localStorage.getItem('token')){
+      return window.location.href='/sign-in' 
+    }
     return (
       <div>
         <div className="row mt-4">
