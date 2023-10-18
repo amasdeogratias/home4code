@@ -25,14 +25,16 @@ class Login extends Component {
       this.props.setUser(response.data.user)
     })
     .catch((error) => {
-      console.log(error);
-      Swal.fire(
-        {
-        title:"Warning",
-        text: "Incorrect username or password",
-        icon: "error",
-        confirmButtonText: "OK"
-      });
+      this.setState({ message: error.response.data.message });
+      if (this.state.message) {
+        let error = this.state.message;
+        Swal.fire({
+          title: "Warning",
+          text: error,
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      }
       
     });
     
