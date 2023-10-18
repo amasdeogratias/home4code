@@ -16,10 +16,10 @@ class AuthController extends Controller
     {
         //validate data
         $validator = Validator::make($request->all(), [
-            'UserDetails.*.first_name' => 'required',
-            'UserDetails.*.last_name' => 'required',
-            'UserDetails.*.email' => 'required',
-            'UserDetails.*.password' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
         ]);
         //if validation fails
         if($validator->fails()){
