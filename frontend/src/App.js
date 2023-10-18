@@ -10,7 +10,9 @@ import Home from './common/Home'
 import Navbar from './components/Navbar'
 import Forget from './components/Forget'
 import Profile from './components/Profile'
+import Reset from './components/Reset'
 import axios from 'axios'
+
 
 class App extends Component {
   
@@ -51,6 +53,7 @@ class App extends Component {
                   <Route exact path="/sign-in" element= {<Login user = {this.state.user} setUser={this.setUser} />}/>
                   <Route exact path="/sign-up" element= {<Register user = {this.state.user} setUser={this.setUser}/>}/>
                   <Route exact path="/forget" element= {<Forget/>}/>
+                  <Route exact path="/reset/:id" element= {<Reset/>}/>
                   <Route exact path="/profile" element= {<Profile user = {this.state.user}/>}/>
                 </Routes>
               </div>
