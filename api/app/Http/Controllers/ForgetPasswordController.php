@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Mail;
 use App\Mail\ForgetPasswordMail;
 use Carbon\Carbon;
+use App\Jobs\SendEmail;
 use Illuminate\Http\Request;
 
 class ForgetPasswordController extends Controller
@@ -21,6 +22,7 @@ class ForgetPasswordController extends Controller
         if($validator->fails()){
             return response(['Validation Error' => $validator->errors()->toJson()], 422);
         }
+        
 
         if(User::where('email', $request->email)->doesntExist()){
             return response([
@@ -29,6 +31,7 @@ class ForgetPasswordController extends Controller
         }
 
         $token = rand(10, 100000);
+
 
         try{
             DB::table('password_reset_tokens')->insert(
@@ -39,7 +42,14 @@ class ForgetPasswordController extends Controller
                 ]
             );
 
-            Mail::to($request->email)->send(new ForgetPasswordMail($token));
+
+
+            $details = [
+                'email' => $request->email,
+                'token' => $token
+            ];
+            SendEmail::dispatch($details)->delay(5);
+
             return response()->json([
                 'message' => 'Reset Password email sent to your email'
             ],200);
