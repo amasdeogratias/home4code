@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
     AuthController,
     ForgetPasswordController,
-    ResetPasswordController
+    ResetPasswordController,
+    TaskController
 };
 
 /*
@@ -30,4 +31,7 @@ Route::post('/reset_password', [ResetPasswordController::class, 'resetPassword']
 
 Route::group(["middleware" => 'auth:api'], function() {
     Route::get('/login-user', [AuthController::class, 'authUser']);
+
+
+    Route::resource('tasks', TaskController::class);
 });
