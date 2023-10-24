@@ -11,6 +11,7 @@ import Navbar from './components/Navbar'
 import Forget from './components/Forget'
 import Profile from './components/Profile'
 import Reset from './components/Reset'
+import Task from './components/Task'
 import axios from 'axios'
 
 
@@ -55,6 +56,7 @@ class App extends Component {
                   <Route exact path="/forget" element= {<Forget/>}/>
                   <Route exact path="/reset/:id" element= {<Reset/>}/>
                   <Route exact path="/profile" element= {<Profile user = {this.state.user}/>}/>
+                  <Route exact path="/tasks" element = {<Task />}/>
                 </Routes>
               </div>
             
