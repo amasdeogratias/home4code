@@ -42,7 +42,7 @@ class TaskController extends Controller
                 'user_id' => $request->user_id,
                 'title' => $request->title,
                 'description' => $request->description,
-                'priority' => $request->priority,
+                'priority' => ($request->priority=='on') ? 1 : 0,
                 'start_date' => $request->start_date,
                 'duration' => $request->duration,
                 'end_date' => $request->end_date,
