@@ -58,7 +58,8 @@ class CreateTask extends Component {
       }
       axios.post('/tasks', data)
       .then(response => {
-        console.log(response.data)
+        this.setState({ message: response.data.message });
+        document.querySelector('form').reset();
       })
       .catch(error => {
         this.setState({ message: error.response.data.message });
@@ -76,6 +77,16 @@ class CreateTask extends Component {
   render() {
     const style = {
       float: 'right'
+    };
+    let success = "";
+    if(this.state.message){
+      success = (
+            <div>
+                <div className="alert alert-success" role='alert'>
+                    {this.state.message}
+                </div>
+            </div>
+        )
     }
     return (
       <div className="main-panel">
@@ -95,7 +106,7 @@ class CreateTask extends Component {
             <div className="col-md-12 grid-margin stretch-card">
               <div className="card">
                 <div className="card-body">
-                  <h4 className="text-center"></h4>
+                  <h4 className="text-center">{ success }</h4>
                   <form onSubmit={this.handleSubmit}>
                     <div className="row">
                       <div className="form-group col-md-6">
