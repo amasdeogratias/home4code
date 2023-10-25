@@ -3,16 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\User;
 use Validator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
     public function index()
     {
-
-        return Task::all();
+        $tasks = DB::table('tasks')->join('users', 'tasks.user_id', '=', 'users.id')->get(['tasks.*', 'users.name']);
+        return response()->json($tasks);
     }
+
+    public function getUsers()
+    {
+        return User::all();
+    }
+
+
 
     public function store(Request $request)
     {

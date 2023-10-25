@@ -24,4 +24,15 @@ class Task extends Model
     protected $casts = [
         'priority' => 'boolean',
     ];
+
+
+    /**
+     * Get the user that owns the Task
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

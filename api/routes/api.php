@@ -34,4 +34,5 @@ Route::group(["middleware" => 'auth:api'], function() {
 
 
     Route::resource('tasks', TaskController::class);
+    Route::get('/users/all', [TaskController::class, 'getUsers']);
 });
