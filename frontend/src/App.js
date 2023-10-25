@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // import login and sign up components
 import Login from './components/Login';
@@ -12,6 +12,7 @@ import Forget from './components/Forget'
 import Profile from './components/Profile'
 import Reset from './components/Reset'
 import Task from './components/Task'
+import CreateTask from './components/CreateTask'
 import axios from 'axios'
 
 
@@ -44,11 +45,9 @@ class App extends Component {
     return (
       <>
         <Router>
-        <Navbar user = {this.state.user} setUser={this.setUser}/>
-          <div className="App">
-            
-            <div className="auth-wrapper">
-              
+        
+          <div className="container-scroller">
+            <Navbar user = {this.state.user} setUser={this.setUser}/>
                 <Routes>
                   <Route exact path="/" element= {<Home />}/>
                   <Route exact path="/sign-in" element= {<Login user = {this.state.user} setUser={this.setUser} />}/>
@@ -57,8 +56,8 @@ class App extends Component {
                   <Route exact path="/reset/:id" element= {<Reset/>}/>
                   <Route exact path="/profile" element= {<Profile user = {this.state.user}/>}/>
                   <Route exact path="/tasks" element = {<Task />}/>
+                  <Route exact path="/create-task" element = {<CreateTask />}/>
                 </Routes>
-              </div>
             
           </div>
         </Router>
