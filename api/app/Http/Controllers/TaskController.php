@@ -59,6 +59,12 @@ class TaskController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        $task = Task::find($id);
+        return response()->json($task);
+    }
+
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
