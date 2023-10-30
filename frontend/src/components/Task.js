@@ -35,7 +35,7 @@ class Task extends Component {
                     <td>{ name }</td>
                     <td>{ name }</td>
                     <td>
-                        <Link className='btn btn-primary btn-sm'><i className='fas fa-edit'></i>Edit</Link>
+                        <Link to={`/edit-task/${id}`} className='btn btn-primary btn-sm'><i className='fas fa-edit'></i>Edit</Link>
                         <Link className='btn btn-danger btn-sm'><i className='fas fa-edit'></i>Delete</Link>
                     </td>
                 </tr>
@@ -43,6 +43,9 @@ class Task extends Component {
         });
     }
   render() {
+    if(!localStorage.getItem('token')){
+        return window.location.href='/sign-in' 
+      }
     return (
         <div className="row mt-4">
             <div className="jumbotron">

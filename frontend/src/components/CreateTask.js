@@ -88,6 +88,9 @@ class CreateTask extends Component {
             </div>
         )
     }
+    if(!localStorage.getItem('token')){
+      return window.location.href='/sign-in' 
+    }
     return (
       <div className="main-panel">
         <div className="content-wrapper">
