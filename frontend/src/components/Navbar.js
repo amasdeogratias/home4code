@@ -9,6 +9,16 @@ class Navbar extends Component {
         localStorage.clear();
         this.props.setUser(null)
     }
+    componentDidMount() {
+        this.timer = setTimeout(() => {
+          if (localStorage.getItem('token')) {
+            this.logout();
+          }
+        }, 60 * 60 * 1000); // 5 minutes in milliseconds
+      }
+      componentWillUnmount() {
+        clearTimeout(this.timer);
+      }
   render() {
     
     let buttons;

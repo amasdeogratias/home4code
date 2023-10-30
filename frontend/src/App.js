@@ -13,6 +13,7 @@ import Profile from './components/Profile'
 import Reset from './components/Reset'
 import Task from './components/Task'
 import CreateTask from './components/CreateTask'
+import EditTask from './components/EditTask'
 import axios from 'axios'
 
 
@@ -57,6 +58,7 @@ class App extends Component {
                   <Route exact path="/profile" element= {<Profile user = {this.state.user}/>}/>
                   <Route exact path="/tasks" element = {<Task />}/>
                   <Route exact path="/create-task" element = {<CreateTask />}/>
+                  <Route exact path="/edit-task/:task_id" element = {<EditTask/>}/>
                 </Routes>
             
           </div>
