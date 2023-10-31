@@ -6,12 +6,14 @@ class Task extends Component {
     constructor(props){
         super(props);
         this.state = {
-            tasks: []
+            tasks: [],
+            loading: true
         };
     }
     
     componentDidMount() {
         this.fetchTasks();
+        this.setState({loading: true})
     }
     
     fetchTasks = () => {
@@ -21,6 +23,21 @@ class Task extends Component {
         })
         .catch(error => {
             console.error('Error fetching tasks:', error);
+        });
+    };
+    deleteTask = (e, id) => {
+        e.preventDefault();
+        
+        const thisClicked = e.currentTarget;
+        thisClicked.innerText = 'Deleting this task...'
+        
+        axios.delete(`tasks/${id}`)
+        .then(response => {
+            console.log("Deleted successfully"+response)
+            thisClicked.closest('tr').remove();
+        })
+        .catch(error => {
+           console.log(error.response.data); 
         });
     };
     renderTableData() {
@@ -36,7 +53,7 @@ class Task extends Component {
                     <td>{ name }</td>
                     <td>
                         <Link to={`/edit-task/${id}`} className='btn btn-primary btn-sm'><i className='fas fa-edit'></i>Edit</Link>
-                        <Link className='btn btn-danger btn-sm'><i className='fas fa-edit'></i>Delete</Link>
+                        <button type='button' onClick={e => {this.deleteTask(e,id)}} className='btn btn-danger btn-sm'><i className='fas fa-edit'></i>Delete</button>
                     </td>
                 </tr>
             )
