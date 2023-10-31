@@ -104,4 +104,11 @@ class TaskController extends Controller
             ],500);
         }
     }
+
+    //delete task
+    public function destroy(Task $id)
+    {
+        $task = $id->delete();
+        return response()->json($task);
+    }
 }
