@@ -63,29 +63,50 @@ class Task extends Component {
     if(!localStorage.getItem('token')){
         return window.location.href='/sign-in' 
       }
+      const style = {
+        float: 'right'
+      };
     return (
-        <div className="row mt-4">
-            <div className="jumbotron">
-                <div className='ml-4'>
-                    <Link className='btn btn-success' to='/create-task'>Create new Task</Link>
+        <div className="main-panel">
+            <div className="content-wrapper">
+                <div className="row">
+                    <div className="col-md-12 grid-margin">
+                    <div className="row">
+                        <div className="col-12 col-xl-12 mb-4 mb-xl-0">
+                        <h3 className="font-weight-bold">Task Details
+                            <Link to="/create-task" className="btn btn-success btn-sm btn-rounded" style={style}><i className="ti-icon ti-plus"></i> Create Task</Link>
+                        </h3>
+                        </div>
+                    </div>
+                    </div>
                 </div>
-                <br />
-                <table className="table table-bordered table-striped" id='example1'>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Task Name</th>
-                            <th>Active</th>
-                            <th>Deadline</th>
-                            <th>Created By</th>
-                            <th>Responsible Person</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.renderTableData()}
-                    </tbody>
-                </table>
+                
+                <div className="row">
+                    <div className="col-md-12 grid-margin stretch-card">
+                        <div className="card">
+                            <div className="card-body">
+                                <h4 className="text-center"></h4>
+                                <table className="table table-bordered table-striped" id='example1'>
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Task Name</th>
+                                            <th>Active</th>
+                                            <th>Deadline</th>
+                                            <th>Created By</th>
+                                            <th>Responsible Person</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {this.renderTableData()}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+            
+                </div>
             </div>
         </div>
     )
