@@ -106,9 +106,12 @@ class TaskController extends Controller
     }
 
     //delete task
-    public function destroy(Task $id)
+    public function destroy($id)
     {
-        $task = $id->delete();
-        return response()->json($task);
+        $task = Task::find($id);
+        $task->delete();
+        return response([
+            'message' => "Task updated successfully"
+        ],200);
     }
 }
