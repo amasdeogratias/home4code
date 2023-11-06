@@ -52,6 +52,7 @@ class Task extends Component {
                     <td>{ name }</td>
                     <td>{ name }</td>
                     <td>
+                        <Link to={`/view-task/${id}`} className='btn btn-info btn-sm'><i className='fas fa-edit'></i>View</Link>
                         <Link to={`/edit-task/${id}`} className='btn btn-primary btn-sm'><i className='fas fa-edit'></i>Edit</Link>
                         <button type='button' onClick={e => {this.deleteTask(e,id)}} className='btn btn-danger btn-sm'><i className='fas fa-edit'></i>Delete</button>
                     </td>

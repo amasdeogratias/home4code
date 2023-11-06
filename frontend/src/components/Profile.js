@@ -11,7 +11,7 @@ class Profile extends Component {
     }
     
     if(!localStorage.getItem('token')){
-      return window.location.href=' ' 
+      return window.location.href='/sign-in' 
     }
     return (
       <div>

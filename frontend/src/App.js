@@ -15,6 +15,7 @@ import Task from './components/Task'
 import CreateTask from './components/CreateTask'
 import EditTask from './components/EditTask'
 import axios from 'axios'
+import ViewTask from './components/ViewTask'
 
 
 class App extends Component {
@@ -59,6 +60,7 @@ class App extends Component {
                   <Route exact path="/tasks" element = {<Task />}/>
                   <Route exact path="/create-task" element = {<CreateTask />}/>
                   <Route exact path="/edit-task/:task_id" element = {<EditTask/>}/>
+                  <Route exact path="/view-task/:task_id" element = {<ViewTask/>}/>
                 </Routes>
             
           </div>
