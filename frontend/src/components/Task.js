@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import Sidebar from './Sidebar'
 
 class Task extends Component {
     constructor(props){
@@ -68,45 +69,48 @@ class Task extends Component {
         float: 'right'
       };
     return (
-        <div className="main-panel">
-            <div className="content-wrapper">
-                <div className="row">
-                    <div className="col-md-12 grid-margin">
+        <div className="container-fluid page-body-wrapper">
+            <Sidebar />
+            <div className="main-panel">
+                <div className="content-wrapper">
                     <div className="row">
-                        <div className="col-12 col-xl-12 mb-4 mb-xl-0">
-                        <h3 className="font-weight-bold">Task Details
-                            <Link to="/create-task" className="btn btn-success btn-sm btn-rounded" style={style}><i className="ti-icon ti-plus"></i> Create Task</Link>
-                        </h3>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                
-                <div className="row">
-                    <div className="col-md-12 grid-margin stretch-card">
-                        <div className="card">
-                            <div className="card-body">
-                                <h4 className="text-center"></h4>
-                                <table className="table table-bordered table-striped" id='example1'>
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Task Name</th>
-                                            <th>Active</th>
-                                            <th>Deadline</th>
-                                            <th>Created By</th>
-                                            <th>Responsible Person</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {this.renderTableData()}
-                                    </tbody>
-                                </table>
+                        <div className="col-md-12 grid-margin">
+                        <div className="row">
+                            <div className="col-12 col-xl-12 mb-4 mb-xl-0">
+                            <h3 className="font-weight-bold">Task Details
+                                <Link to="/create-task" className="btn btn-success btn-sm btn-rounded" style={style}><i className="ti-icon ti-plus"></i> Create Task</Link>
+                            </h3>
                             </div>
                         </div>
+                        </div>
                     </div>
-            
+                    
+                    <div className="row">
+                        <div className="col-md-12 grid-margin stretch-card">
+                            <div className="card">
+                                <div className="card-body">
+                                    <h4 className="text-center"></h4>
+                                    <table className="table table-bordered table-striped" id='example1'>
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Task Name</th>
+                                                <th>Active</th>
+                                                <th>Deadline</th>
+                                                <th>Created By</th>
+                                                <th>Responsible Person</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {this.renderTableData()}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                
+                    </div>
                 </div>
             </div>
         </div>

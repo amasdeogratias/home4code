@@ -57,7 +57,7 @@ class Navbar extends Component {
           ) 
     }
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div className="container-fluid">
                 <Link className='navbar-brand' to={'/'}> Easy Learning</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,6 +84,7 @@ class Navbar extends Component {
                 </div>
             </div>
         </nav>
+        
     )
   }
 }
