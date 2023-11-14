@@ -114,4 +114,33 @@ class TaskController extends Controller
             'message' => "Task updated successfully"
         ],200);
     }
+
+
+    public function assignTaskToUser(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'task_id' => 'required',
+            'user_id' => 'required'
+        ]);
+
+        if($validator->fails()) {
+            return response(["Validation Error" => $validator->errors()->toJson()], 422);
+        }
+
+        $user = User::find($request->user_id);
+        $task = Task::find($request->task_id);
+
+        try{
+            $task->user()->associate($user);
+            $task->save();
+            return response([
+                "message" => "Task assigned successfully"
+            ], 200);
+
+        }catch(\Exception $e){
+            return response([
+                "Error" => 'Error in assigning task to user'. $e->getMessage()
+            ], 500);
+        }
+    }
 }
