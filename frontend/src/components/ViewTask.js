@@ -13,6 +13,7 @@ const ViewTask = () => {
     const [loading, setLoading] = useState(true);
     const [users, setUsers] = useState([]);
     const [user_id, setUserId] = useState();
+    const [message, setMessage] = useState('')
     
     useEffect(() => {
       axios.get(`/tasks/${task_id}`)
@@ -48,6 +49,7 @@ const ViewTask = () => {
       axios.post('/tasks/assign', data)
       .then((response) => {
         console.log(response)
+        setMessage(response.data.message);
       })
       .catch((error) => {
         console.log(`Error assigning task to user ${error}`)
@@ -86,6 +88,9 @@ const ViewTask = () => {
                               ) : null}
                           </span>
                           <h3 className="card-title">Task Priority: <span style={style}>{priority}</span></h3>
+                          { message ? (
+                            <div className="alert alert-success">{message}</div>
+                          ) : '' }
                         </div>
                           <div className="card-body">
                               <h4 className="text-center"></h4>
