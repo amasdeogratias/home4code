@@ -11,6 +11,8 @@ const ViewTask = () => {
     const [priority, setPriority] = useState("Low")
     const [style, setStyle] = useState({color:'black'})
     const [loading, setLoading] = useState(true);
+    const [users, setUsers] = useState([]);
+    const [user_id, setUserId] = useState();
     
     useEffect(() => {
       axios.get(`/tasks/${task_id}`)
@@ -23,8 +25,34 @@ const ViewTask = () => {
         console.log(error);
         setLoading(false);
     });
+    fetchUsers();
       
-    });
+    },[]);
+    
+    const fetchUsers = () => {
+      axios.get('/users/all')
+      .then(response => {
+        setUsers(response.data)
+      })
+      .catch(error => {
+        console.log(error)
+      });
+    }
+    
+    const assignTask = () => {
+      const data = {
+        user_id: user_id,
+        task_id:task_id
+      }
+      console.log(data)
+      axios.post('/tasks/assign', data)
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log(`Error assigning task to user ${error}`)
+      })
+    }
     
     if (task.priority === "1") {
       setPriority("High");
@@ -90,6 +118,22 @@ const ViewTask = () => {
                                   <input type="text" name="duration" id="duration" className="form-control" readOnly value={task.duration} />
                                 </div>
                               </div>
+                              <div className="row">
+                                <div className="form-group col-md-6">
+                                  <select name="user_id" id="user_id" className='form-control' onChange={(e)=> {setUserId(e.target.value)}}>
+                                    {users.map((user, index) => {
+                                      return (
+                                        <option key={index} value={user.id}>{user.name}</option>
+                                      )
+                                    })}
+                                  
+                                  </select>
+                                </div>
+                                <div className="form-group col-md-6">
+                                  <button type='submit' className="btn btn-info" name="assign" id="assign" onClick={assignTask}>Assign Task To User</button>
+                                </div>
+                              </div>
+                              
                           </div>
                       </div>
                   </div>
