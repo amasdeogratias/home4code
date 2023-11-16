@@ -14,12 +14,14 @@ const ViewTask = () => {
     const [users, setUsers] = useState([]);
     const [user_id, setUserId] = useState();
     const [message, setMessage] = useState('')
+    const [name, setName] = useState('')
+    
     
     useEffect(() => {
       axios.get(`/tasks/${task_id}`)
     .then(res => {
-        console.log(res.data)
         setTask(res.data)
+        setName(res.data.user.name)
         setLoading(false);
     })
     .catch(error => {
@@ -102,7 +104,7 @@ const ViewTask = () => {
                                 </div>
                                 <div className="form-group col-md-6">
                                     <label htmlFor="title">Assigned User</label>
-                                    <input type="text" name="user_id" id="user_id" className="form-control" readOnly value={task.user_id} />
+                                    <input type="text" name="user_id" id="user_id" className="form-control" readOnly value={name} />
                                 </div>
                               </div>
                               <div className="form-group">
