@@ -62,7 +62,7 @@ class TaskController extends Controller
 
     public function show($id)
     {
-        $task = Task::find($id);
+        $task = Task::with('user')->find($id);
         return response()->json($task);
     }
 
