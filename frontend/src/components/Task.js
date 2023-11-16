@@ -43,7 +43,7 @@ class Task extends Component {
     };
     renderTableData() {
         return this.state.tasks.map((task, index) => {
-            const { id, title, start_date, end_date, name } = task;
+            const { id, title, start_date, end_date, name, status } = task;
             return (
                 <tr key={id}>
                     <td>{ index+1 }</td>
@@ -52,6 +52,7 @@ class Task extends Component {
                     <td>{ end_date }</td>
                     <td>{ name }</td>
                     <td>{ name }</td>
+                    <td>{ status }</td>
                     <td>
                         <Link to={`/view-task/${id}`} className='btn btn-info btn-sm'><i className='fas fa-edit'></i>View</Link>
                         <Link to={`/edit-task/${id}`} className='btn btn-primary btn-sm'><i className='fas fa-edit'></i>Edit</Link>
@@ -99,6 +100,7 @@ class Task extends Component {
                                                 <th>Deadline</th>
                                                 <th>Created By</th>
                                                 <th>Responsible Person</th>
+                                                <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
