@@ -160,11 +160,22 @@ class TaskController extends Controller
             $overdueTasks = Task::where('id', $request->task_id)->where('end_date', '<', Carbon::now())->where('status', '!=', 'completed')->get();
             if($overdueTasks){
                 return response()->json(['status' => "Overdue"]);
+            }else{
+                return response()->json(['status' => "This task is still active"]);
             }
 
         }catch(\Exception $e){
             return response()->json(['overdue_tasks' => $e->getMessage()]);
         }
 
+    }
+
+    public function complete($id){
+        $find_task=Tasks::find($id);
+        $find_task->status='completed';
+        $find_task->save();
+        return response([
+            "message" => "Task marked as completed successfully !"
+        ],200);
     }
 }
