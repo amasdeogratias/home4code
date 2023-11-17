@@ -8,7 +8,7 @@ const ViewTask = () => {
     const {task_id} = useParams([])
     
     const [task, setTask] = useState('')
-    const [priority, setPriority] = useState("Low")
+    const [priority, setPriority] = useState(false)
     const [style, setStyle] = useState({color:'black'})
     const [loading, setLoading] = useState(true);
     const [users, setUsers] = useState([]);
@@ -18,19 +18,29 @@ const ViewTask = () => {
     
     
     useEffect(() => {
-      axios.get(`/tasks/${task_id}`)
-    .then(res => {
-        setTask(res.data)
-        setName(res.data.user.name)
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(`/tasks/${task_id}`);
+          setTask(response.data);
+          setName(response.data.user.name);
+          setLoading(false);
+          if (response.data.priority === true) {
+            setPriority("High");
+            setStyle({ color: "red" });
+          }else{
+            setPriority("Low");
+            setStyle({ color: "black" });
+          }
+        }catch(error) {
+          console.error(error);
         setLoading(false);
-    })
-    .catch(error => {
-        console.log(error);
-        setLoading(false);
-    });
+        }
+      }
+      
+    fetchData();
     fetchUsers();
       
-    },[]);
+    },[task_id]);
     
     const fetchUsers = () => {
       axios.get('/users/all')
@@ -58,10 +68,7 @@ const ViewTask = () => {
       })
     }
     
-    if (task.priority === "1") {
-      setPriority("High");
-      setStyle({ color: "red" });
-    }
+    
      
   return (
     <div className="container-fluid page-body-wrapper">
@@ -104,7 +111,7 @@ const ViewTask = () => {
                                 </div>
                                 <div className="form-group col-md-6">
                                     <label htmlFor="title">Assigned User</label>
-                                    <input type="text" name="user_id" id="user_id" className="form-control" readOnly value={name} />
+                                    <input type="text" name="user" id="user" className="form-control" readOnly value={name} />
                                 </div>
                               </div>
                               <div className="form-group">
