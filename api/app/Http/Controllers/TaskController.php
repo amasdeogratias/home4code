@@ -6,6 +6,7 @@ use App\Models\Task;
 use App\Models\User;
 use Validator;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -143,5 +144,27 @@ class TaskController extends Controller
                 "Error" => 'Error in assigning task to user'. $e->getMessage()
             ], 500);
         }
+    }
+
+    public function checkOverdueTasks(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'task_id' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return response(['Validation Error' => $validator->errors()->toJson()], 422);
+        }
+        try{
+
+            $overdueTasks = Task::where('id', $request->task_id)->where('end_date', '<', Carbon::now())->where('status', '!=', 'completed')->get();
+            if($overdueTasks){
+                return response()->json(['status' => "Overdue"]);
+            }
+
+        }catch(\Exception $e){
+            return response()->json(['overdue_tasks' => $e->getMessage()]);
+        }
+
     }
 }
