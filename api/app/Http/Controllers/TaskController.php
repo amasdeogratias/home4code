@@ -175,7 +175,7 @@ class TaskController extends Controller
         $find_task->status='completed';
         $find_task->save();
         return response([
-            "message" => "Task marked as completed successfully !"
+            "message" => "Task marked as completed successfully!"
         ],200);
     }
 }

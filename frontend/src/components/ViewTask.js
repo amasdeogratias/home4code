@@ -3,6 +3,8 @@ import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { useEffect } from 'react'
 import Sidebar from './Sidebar'
+import moment from 'moment';
+
 
 const ViewTask = () => {
     const {task_id} = useParams([])
@@ -15,12 +17,14 @@ const ViewTask = () => {
     const [user_id, setUserId] = useState();
     const [message, setMessage] = useState('')
     const [name, setName] = useState('')
+    const [overdue, setOverdue] = useState('');
     
     
     useEffect(() => {
       const fetchData = async () => {
         try {
           const response = await axios.get(`/tasks/${task_id}`);
+          console.log(response)
           setTask(response.data);
           setName(response.data.user.name);
           setLoading(false);
@@ -29,6 +33,13 @@ const ViewTask = () => {
             setStyle({ color: "red" });
           }else{
             setPriority("Low");
+            setStyle({ color: "black" });
+          }
+          if(moment(response.data.end_date) < (moment())){
+            setOverdue('Overdue')
+            setStyle({ color: "red" });
+          }else{
+            setOverdue('Active')
             setStyle({ color: "black" });
           }
         }catch(error) {
@@ -69,6 +80,7 @@ const ViewTask = () => {
     }
     
     
+    
      
   return (
     <div className="container-fluid page-body-wrapper">
@@ -96,7 +108,11 @@ const ViewTask = () => {
                                 <span className='alert alert-info'>Loading...</span>
                               ) : null}
                           </span>
-                          <h3 className="card-title">Task Priority: <span style={style}>{priority}</span></h3>
+                          <h3 className='card-title'>
+                            <span>{task.title}, <span style={style}>{overdue}</span></span>
+                            <span className="float-right">Task Priority: <span style={style}>{priority}</span></span>
+                          </h3>
+                          
                           { message ? (
                             <div className="alert alert-success">{message}</div>
                           ) : '' }
