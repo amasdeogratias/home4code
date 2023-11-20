@@ -135,16 +135,16 @@ const ViewTask = () => {
                                 <textarea name="description" id="description" rows="3" className="form-control" value={task.description} ></textarea>
                               </div>
                               <div className="row">
-                                <div className="form-group col-md-6">
-                                  <label htmlFor="start_date"></label>
+                                <div className="form-group col-md-4">
+                                  <label htmlFor="start_date">Started at</label>
                                   <input type="date" name="start_date" id="start_date" className="form-control" readOnly value={task.start_date} />
                                 </div>
-                                <div className="form-group col-md-6">
-                                  <label htmlFor="end_date"></label>
+                                <div className="form-group col-md-4">
+                                  <label htmlFor="end_date">Deadline</label>
                                   <input type="date" name="end_date" id="end_date" className="form-control" placeholder="Enter end date" readOnly value={task.end_date} />
                                 </div>
-                                <div className="form-group col-md-6">
-                                  <label htmlFor="duration"></label>
+                                <div className="form-group col-md-4">
+                                  <label htmlFor="duration">Duration(Days)</label>
                                   <input type="text" name="duration" id="duration" className="form-control" readOnly value={task.duration} />
                                 </div>
                               </div>
@@ -161,6 +161,31 @@ const ViewTask = () => {
                                 </div>
                                 <div className="form-group col-md-6">
                                   <button type='submit' className="btn btn-info" name="assign" id="assign" onClick={assignTask}>Assign Task To User</button>
+                                </div>
+                              </div>
+                              <div className="row">
+                                <ul className="nav nav-tabs border-top" id="setting-panel" role="tablist">
+                                  <li className="nav-item">
+                                    <a className="nav-link active" id="todo-tab" data-bs-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">Comments</a>
+                                  </li>
+                                  <li className="nav-item">
+                                    <a className="nav-link" id="chats-tab" data-bs-toggle="tab" href="#chats-section" role="tab" aria-controls="chats-section">Notifications</a>
+                                  </li>
+                                </ul>
+                              </div>
+                              <div className="tab-content" id="setting-content">
+                                <div className="tab-pane fade show active scroll-wrapper" id="todo-section" role="tabpanel" aria-labelledby="todo-section">
+                                  <div className="row d-flex px-2 mb-0">
+                                    <form className="form w-100">
+                                      <div className="form-group">
+                                        <textarea type="text" name="comment" rows="3" className="form-control" placeholder="Add comment" ></textarea>
+                                        
+                                      </div>
+                                      <div className="form-group float-right">
+                                      <button type="submit" className="btn btn-primary" id="add-task">Send</button>
+                                      </div>
+                                    </form>
+                                  </div>
                                 </div>
                               </div>
                               
