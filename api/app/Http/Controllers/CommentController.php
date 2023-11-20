@@ -31,4 +31,11 @@ class CommentController extends Controller
             ], 500);
         }
     }
+
+    public function viewComments($taskId)
+    {
+        $comments = Comment::with('user', 'task')->where('task_id', $taskId)->get();
+        return response()->json($comments, 200);
+
+    }
 }

@@ -41,5 +41,6 @@ Route::group(["middleware" => 'auth:api'], function() {
 
     Route::group(["prefix" => 'comments'], function(){
         Route::post('/add', [CommentController::class, 'store']);
+        Route::get('/{taskId}', [CommentController::class, 'viewComments']);
     });
 });
