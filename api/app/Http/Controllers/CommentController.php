@@ -39,6 +39,26 @@ class CommentController extends Controller
 
     }
 
+    public function updateComment(Request $request, $commentId)
+    {
+        try {
+
+            $this->validate($request, [
+                'body' => 'required|string|min:3',
+            ]);
+
+            $comment = Comment::findOrFail($commentId);
+            $comment->body = $request->body;
+            $comment->save();
+            return response()->json($comment, 200);
+
+        }catch(\Exception $e){
+            return response([
+                "message" => $e->getMessage()
+            ], 500);
+        }
+    }
+
     public function destroy($commentId)
     {
         Comment::findOrFail($commentId)->delete();
