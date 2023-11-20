@@ -6,7 +6,8 @@ use App\Http\Controllers\{
     AuthController,
     ForgetPasswordController,
     ResetPasswordController,
-    TaskController
+    TaskController,
+    CommentController
 };
 
 /*
@@ -37,4 +38,8 @@ Route::group(["middleware" => 'auth:api'], function() {
     Route::get('/users/all', [TaskController::class, 'getUsers']);
     Route::post('/tasks/assign', [TaskController::class, 'assignTaskToUser']);
     Route::post('/tasks/overdue', [TaskController::class, 'checkOverdueTasks']);
+
+    Route::group(["prefix" => 'comments'], function(){
+        Route::post('/add', [CommentController::class, 'store']);
+    });
 });
