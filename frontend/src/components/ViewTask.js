@@ -34,7 +34,6 @@ const ViewTask = (props) => {
       const fetchData = async () => {
         try {
           const response = await axios.get(`/tasks/${task_id}`);
-          console.log(response)
           setTask(response.data);
           setName(response.data.user.name);
           setLoading(false);
@@ -83,7 +82,6 @@ const ViewTask = (props) => {
       console.log(data)
       axios.post('/tasks/assign', data)
       .then((response) => {
-        console.log(response)
         setMessage(response.data.message);
       })
       .catch((error) => {
@@ -242,7 +240,7 @@ const ViewTask = (props) => {
                                             <li key={index}>
                                             <div class="d-flex">
                                               <div>
-                                                <p class="text-info mb-1">{name}</p>
+                                                <p class="text-info mb-1">{comment.user.name}</p>
                                                 <p class="mb-0">{comment.body}</p>
                                                 <small>{moment(comment.created_at).format('MMMM Do YYYY, h:mm:ss a')}</small>
                                               </div>
