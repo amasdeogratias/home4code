@@ -125,7 +125,9 @@ const ViewTask = () => {
       
     }
     
-    
+    if(!localStorage.getItem('token')){
+      return window.location.href='/sign-in' 
+    }
     
      
   return (
