@@ -110,6 +110,21 @@ const ViewTask = () => {
       });
     }
     
+    const deleteComment = (e,id) => {
+      e.preventDefault()
+      
+      const thisClicked = e.currentTarget;
+      axios.delete(`/comments/${id}`)
+      .then(response => {
+        console.log("Deleted successfully"+response)
+        thisClicked.closest('li').remove();
+      })
+      .catch(error => {
+        console.log(error.response.data); 
+      });
+      
+    }
+    
     
     
      
@@ -211,6 +226,7 @@ const ViewTask = () => {
                                     <div class="card-body">
                                       <ul class="icon-data-list">
                                         {comments.map((comment, index) => {
+                                          const {id} = comment;
                                           return (
                                             <li key={index}>
                                             <div class="d-flex">
@@ -218,6 +234,9 @@ const ViewTask = () => {
                                                 <p class="text-info mb-1">{name}</p>
                                                 <p class="mb-0">{comment.body}</p>
                                                 <small>{moment(comment.created_at).format('MMMM Do YYYY, h:mm:ss a')}</small>
+                                              </div>
+                                              <div className="float-right mt-2">
+                                                <button type='button' className="btn btn-danger btn-sm" onClick={(e)=>deleteComment(e,id)}>delete</button>
                                               </div>
                                             </div>
                                           </li>
