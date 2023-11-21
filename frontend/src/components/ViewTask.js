@@ -18,6 +18,7 @@ const ViewTask = () => {
     const [message, setMessage] = useState('')
     const [name, setName] = useState('')
     const [overdue, setOverdue] = useState('');
+    const [body, setBody] = useState('')
     
     
     useEffect(() => {
@@ -79,6 +80,23 @@ const ViewTask = () => {
       })
     }
     
+    const submitComment = (e) => {
+      e.preventDefault();
+      const data = {
+        task_id: task_id,
+        user_id: task.user_id,
+        body:body
+      }
+      axios.post('/comments/add', data)
+      .then(response => {
+        setBody(response.data)
+        document.querySelector('form').reset();
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    }
+    
     
     
      
@@ -127,6 +145,7 @@ const ViewTask = () => {
                                 </div>
                                 <div className="form-group col-md-6">
                                     <label htmlFor="title">Assigned User</label>
+                                    <input type="hidden" name="user_id" id="user_id" className="form-control" readOnly value={task.user_id} />
                                     <input type="text" name="user" id="user" className="form-control" readOnly value={name} />
                                 </div>
                               </div>
@@ -166,7 +185,7 @@ const ViewTask = () => {
                               <div className="row">
                                 <ul className="nav nav-tabs border-top" id="setting-panel" role="tablist">
                                   <li className="nav-item">
-                                    <a className="nav-link active" id="todo-tab" data-bs-toggle="tab" href="#todo-section" role="tab" aria-controls="todo-section" aria-expanded="true">Comments</a>
+                                    <a className="nav-link active" id="todo-tab" data-bs-toggle="tab" href="#comment-section" role="tab" aria-controls="comment-section" aria-expanded="true">Comments</a>
                                   </li>
                                   <li className="nav-item">
                                     <a className="nav-link" id="chats-tab" data-bs-toggle="tab" href="#chats-section" role="tab" aria-controls="chats-section">Notifications</a>
@@ -174,11 +193,11 @@ const ViewTask = () => {
                                 </ul>
                               </div>
                               <div className="tab-content" id="setting-content">
-                                <div className="tab-pane fade show active scroll-wrapper" id="todo-section" role="tabpanel" aria-labelledby="todo-section">
+                                <div className="tab-pane fade show active scroll-wrapper" id="comment-section" role="tabpanel" aria-labelledby="comment-section">
                                   <div className="row d-flex px-2 mb-0">
-                                    <form className="form w-100">
+                                    <form className="form w-100" onSubmit={submitComment}>
                                       <div className="form-group">
-                                        <textarea type="text" name="comment" rows="3" className="form-control" placeholder="Add comment" ></textarea>
+                                        <textarea type="text" name="comment" rows="3" className="form-control" placeholder="Add comment" onChange={(e)=> {setBody(e.target.value)}}></textarea>
                                         
                                       </div>
                                       <div className="form-group float-right">
