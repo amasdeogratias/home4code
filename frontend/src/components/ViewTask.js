@@ -6,7 +6,7 @@ import Sidebar from './Sidebar'
 import moment from 'moment';
 
 
-const ViewTask = () => {
+const ViewTask = (props) => {
     const {task_id} = useParams([])
     
     const [task, setTask] = useState('')
@@ -20,6 +20,14 @@ const ViewTask = () => {
     const [overdue, setOverdue] = useState('');
     const [body, setBody] = useState('')
     const [comments, setComments] = useState([])
+    
+    let userId;
+    let username;
+    if(props.user){
+      userId = props.user.id
+      username = props.user.name
+    }
+    
     
     
     useEffect(() => {
@@ -56,6 +64,7 @@ const ViewTask = () => {
       
     },[task_id]);
     
+    
     const fetchUsers = () => {
       axios.get('/users/all')
       .then(response => {
@@ -86,7 +95,7 @@ const ViewTask = () => {
       e.preventDefault();
       const data = {
         task_id: task_id,
-        user_id: task.user_id,
+        user_id: userId,
         body:body
       }
       axios.post('/comments/add', data)
