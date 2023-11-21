@@ -19,6 +19,7 @@ const ViewTask = () => {
     const [name, setName] = useState('')
     const [overdue, setOverdue] = useState('');
     const [body, setBody] = useState('')
+    const [comments, setComments] = useState([])
     
     
     useEffect(() => {
@@ -51,6 +52,7 @@ const ViewTask = () => {
       
     fetchData();
     fetchUsers();
+    fetchComments()
       
     },[task_id]);
     
@@ -91,10 +93,21 @@ const ViewTask = () => {
       .then(response => {
         setBody(response.data)
         document.querySelector('form').reset();
+        fetchComments()
       })
       .catch(error => {
         console.log(error);
       })
+    }
+    
+    const fetchComments = () => {
+      axios.get(`/comments/${task_id}`)
+      .then(response => {
+        setComments(response.data)
+      })
+      .catch(error => {
+        console.log(error);
+      });
     }
     
     
@@ -194,6 +207,26 @@ const ViewTask = () => {
                               </div>
                               <div className="tab-content" id="setting-content">
                                 <div className="tab-pane fade show active scroll-wrapper" id="comment-section" role="tabpanel" aria-labelledby="comment-section">
+                                  <div class="card">
+                                    <div class="card-body">
+                                      <ul class="icon-data-list">
+                                        {comments.map((comment, index) => {
+                                          return (
+                                            <li key={index}>
+                                            <div class="d-flex">
+                                              <div>
+                                                <p class="text-info mb-1">{name}</p>
+                                                <p class="mb-0">{comment.body}</p>
+                                                <small>{moment(comment.created_at).format('MMMM Do YYYY, h:mm:ss a')}</small>
+                                              </div>
+                                            </div>
+                                          </li>
+                                          )
+                                        })}
+                                        
+                                      </ul>
+                                    </div>
+                                  </div>
                                   <div className="row d-flex px-2 mb-0">
                                     <form className="form w-100" onSubmit={submitComment}>
                                       <div className="form-group">
