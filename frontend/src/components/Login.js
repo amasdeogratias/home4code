@@ -10,41 +10,38 @@ class Login extends Component {
     message: ''
   }
   
-  formSubmit = (e) => {
+  formSubmit = async (e) => {
     e.preventDefault();
-    axios.post('/login', {
-      email: this.state.email,
-      password: this.state.password
-    })
-    .then((response) => {
+    try {
+      const response = await axios.post('/login', {
+        email: this.state.email,
+        password: this.state.password
+      });
       console.log(response);
       localStorage.setItem('token', response.data.token);
       this.setState({
         loggedIn: true
-      })
-      this.props.setUser(response.data.user)
-    })
-    .catch((error) => {
+      });
+    this.props.setUser(response.data.user);
+    window.location.href = '/profile';
+    } catch (error) {
+      console.log(error.response.data.message);
       this.setState({ message: error.response.data.message });
-      if (this.state.message) {
-        let error = this.state.message;
-        Swal.fire({
-          title: "Warning",
-          text: error,
-          icon: "error",
-          confirmButtonText: "OK",
-        });
-      }
-      
-    });
+      Swal.fire({
+        title: "Warning",
+        text: error.response.data.message,
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    }
     
   }
   render() {
     
     //if logged in redirect to profile
-    if(this.state.loggedIn){
-      return window.location.href='/profile'
-    }
+    // if(this.state.loggedIn){
+    //   return window.location.href='/profile'
+    // }
     
     if(localStorage.getItem('token')){
       return window.location.href='/profile' 
