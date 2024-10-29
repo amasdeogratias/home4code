@@ -7,7 +7,8 @@ use App\Http\Controllers\{
     ForgetPasswordController,
     ResetPasswordController,
     TaskController,
-    CommentController
+    CommentController,
+    ProjectController
 };
 
 /*
@@ -32,6 +33,9 @@ Route::post('/reset_password', [ResetPasswordController::class, 'resetPassword']
 
 Route::group(["middleware" => 'auth:api'], function() {
     Route::get('/login-user', [AuthController::class, 'authUser']);
+
+    //projects routes
+    Route::resource('projects', ProjectController::class);
 
 
     Route::resource('tasks', TaskController::class);
