@@ -24,6 +24,7 @@ class Navbar extends Component {
     let buttons;
     let profile;
     let tasks;
+    let projects;
     if(localStorage.getItem('token')){
       buttons = (
         <div>
@@ -39,6 +40,11 @@ class Navbar extends Component {
       tasks = (
         <div>
             <Link className="nav-link" to={'/tasks'}>Tasks</Link>
+        </div>
+      )
+      projects = (
+        <div>
+            <Link className="nav-link" to={'/projects'}>Projects</Link>
         </div>
       )
     }else{
@@ -76,6 +82,9 @@ class Navbar extends Component {
                         </li>
                         <li className="nav-item">
                             { tasks }
+                        </li>
+                        <li className="nav-item">
+                            { projects }
                         </li>
                     </ul>
                     <span className="navbar-text">
