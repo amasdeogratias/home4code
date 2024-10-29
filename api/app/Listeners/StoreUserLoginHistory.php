@@ -24,13 +24,14 @@ class StoreUserLoginHistory
     public function handle(LoginHistory $event)
     {
         $userinfo = $event->user;
+        $token = $event->token;
         $current_timestamp = Carbon::now()->toDateTimeString();
 
         $saveHistory = DB::table('login_history')->insert(
             [
                 'name' => $userinfo->name,
                 'email' => $userinfo->email,
-                // 'token' => $userinfo->token,
+                'token' => $token,
                 'created_at' => $current_timestamp,
                 'updated_at' => $current_timestamp
             ]

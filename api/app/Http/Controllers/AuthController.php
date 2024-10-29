@@ -18,7 +18,7 @@ class AuthController extends Controller
             if(Auth::attempt($request->only('email', 'password'))) {
                 $user = Auth::user();
                 $token = $user->createToken('passport')->accessToken;
-                event(new LoginHistory($user));
+                event(new LoginHistory($user, $token));
 
                 return response([
                     'message' => 'Successfully Login',
