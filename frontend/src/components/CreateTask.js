@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'
-import Sidebar from './Sidebar'
 
 class CreateTask extends Component {
   constructor(props){
@@ -93,9 +92,8 @@ class CreateTask extends Component {
       return window.location.href='/sign-in' 
     }
     return (
-      <div className="container-fluid page-body-wrapper">
-        <Sidebar />
-        <div className="main-panel">
+      <div className="dashboard_container">
+        <div className="container">
           <div className="content-wrapper">
             <div className="row">
               <div className="col-md-12 grid-margin">

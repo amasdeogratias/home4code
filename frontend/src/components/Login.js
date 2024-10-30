@@ -48,48 +48,47 @@ class Login extends Component {
     }
     
     return (
-      <div>
-        <div className="row mt-4">
-            <div className='jumbotron col-lg-4 offset-lg-4'>
-                <h3 className='text-center'>Login</h3>
-                <form onSubmit={this.formSubmit}>
-                    <div className="mb-3">
-                        <label>Email address</label>
-                        <input
-                            type="email"
-                            name="email"
-                            className="form-control"
-                            placeholder="Enter email"
-                            required
-                            autoComplete='off'
-                            onChange={(e)=> {this.setState({email:e.target.value})}}
-                        
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label>Password</label>
-                        <input
-                            type="password"
-                            name="password"
-                            className="form-control"
-                            placeholder="Enter password"
-                            required
-                            onChange={(e)=> {this.setState({password:e.target.value})}}
-                        
-                        />
-                    </div>
-                    <p className="forgot-password text-right">
-                         <Link to="/forget">Forgot password?</Link>
-                    </p>
-                    
-                    <div className="d-grid">
-                        <button type="submit" className="btn btn-primary btn-block">Login</button>
-                    </div>
-                    
-                </form>
-            </div>
-           
-        </div>
+      <div className='login_container'>
+          <div className='login_container login'>
+          <div className="login_form mt-4">
+              <h3 className='login_title'>Login</h3>
+              <form onSubmit={this.formSubmit}>
+                  <div className="mb-3">
+                      <label>Email address</label>
+                      <input
+                          type="email"
+                          name="email"
+                          className="form-control"
+                          placeholder="Enter email"
+                          required
+                          autoComplete='off'
+                          onChange={(e)=> {this.setState({email:e.target.value})}}
+                      
+                      />
+                  </div>
+                  <div className="mb-3">
+                      <label>Password</label>
+                      <input
+                          type="password"
+                          name="password"
+                          className="form-control"
+                          placeholder="Enter password"
+                          required
+                          onChange={(e)=> {this.setState({password:e.target.value})}}
+                      
+                      />
+                  </div>
+                  <p className="forgot-password text-right">
+                      <Link to="/forget">Forgot password?</Link>
+                  </p>
+                  
+                  <div className="d-grid">
+                      <button type="submit" className="btn btn-primary btn-block">Login</button>
+                  </div>
+                  
+              </form>
+          </div>
+          </div>
         
       </div>
     )

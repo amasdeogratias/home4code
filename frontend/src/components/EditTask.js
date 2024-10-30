@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
-import Sidebar from './Sidebar'
 
 const EditTask = (props) => {
   const [users, setUsers] = useState([]);
@@ -92,9 +91,8 @@ const EditTask = (props) => {
   }
 
   return (
-    <div className="container-fluid page-body-wrapper">
-      <Sidebar />
-      <div className="main-panel">
+    <div className="dashboard_container">
+      <div className="container">
         <div className="content-wrapper">
           <div className="row">
             <div className="col-md-12 grid-margin">

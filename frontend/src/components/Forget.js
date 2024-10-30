@@ -37,7 +37,7 @@ class Forget extends Component {
         )
     }
     return (
-        <div>
+        <div className='login_container'>
             <div className="row mt-4">
                 <div className='jumbotron col-lg-4 offset-lg-4'>
                     <h3 className='text-center'>Forget Password?</h3>
@@ -59,7 +59,7 @@ class Forget extends Component {
                             <button type="submit" className="btn btn-primary btn-block">Send Email</button>
                         </div>
                         <p className="forgot-password text-right">
-                           Don't have account <Link to="/sign-up">sign up here?</Link>
+                           Don't have account <Link to="/sign-up" style={{color:'white', textDecoration:'none'}}>sign up here?</Link>
                         </p>
                     </form>
                 </div>

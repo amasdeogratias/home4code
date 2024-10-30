@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import Sidebar from './Sidebar'
 
 class Task extends Component {
     constructor(props){
@@ -70,9 +69,8 @@ class Task extends Component {
         float: 'right'
       };
     return (
-        <div className="container-fluid page-body-wrapper">
-            <Sidebar />
-            <div className="main-panel">
+        <div className="dashboard_container">
+            <div className="container">
                 <div className="content-wrapper">
                     <div className="row">
                         <div className="col-md-12 grid-margin">

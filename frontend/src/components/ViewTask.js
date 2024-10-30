@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { useEffect } from 'react'
-import Sidebar from './Sidebar'
 import moment from 'moment';
 
 
@@ -138,9 +137,8 @@ const ViewTask = (props) => {
     
      
   return (
-    <div className="container-fluid page-body-wrapper">
-      <Sidebar />
-      <div className="main-panel">
+    <div className="dashboard_container">
+      <div className="container">
           <div className="content-wrapper">
               <div className="row">
                   <div className="col-md-12 grid-margin">
