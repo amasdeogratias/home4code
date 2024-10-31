@@ -11,12 +11,12 @@ import Navbar from './components/Navbar'
 import Forget from './components/Forget'
 import Profile from './components/Profile'
 import Reset from './components/Reset'
-import Task from './components/Task'
-import CreateTask from './components/CreateTask'
-import EditTask from './components/EditTask'
+import Task from './components/tasks/Task'
+import CreateTask from './components/tasks/CreateTask'
+import EditTask from './components/tasks/EditTask'
 import axios from 'axios'
-import ViewTask from './components/ViewTask'
-import Projects from './components/Projects'
+import ViewTask from './components/tasks/ViewTask'
+import Projects from './components/projects/Projects'
 
 
 class App extends Component {
