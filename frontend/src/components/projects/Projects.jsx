@@ -3,16 +3,20 @@ import { Link } from 'react-router-dom';
 import axios from 'axios'
 import { CiCirclePlus } from "react-icons/ci";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import './project.css';
 
 
 function Projects() {
+  const [isLoading, setIsLoading] = useState(false);
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
     const fetchProjects = () => {
+      setIsLoading(true);
       axios.get('/projects')
       .then(response => {
         setProjects(response.data);
+        setIsLoading(false);
         console.log(response.data)
       })
       .catch(error => {
@@ -22,6 +26,9 @@ function Projects() {
     };
     fetchProjects();
   },[])
+
+  
+
   return (
     <div className='dashboard_container'>
       <div className="container">
@@ -31,7 +38,7 @@ function Projects() {
               <div className="row">
                 <div className="col-12 col-xl-12 mb-4 mb-xl-0">
                   <h3 className="font-weight-bold">Projects
-                    <Link to="/create-task" className="btn btn-success btn-sm btn-rounded" style={{ float: 'right' }}><CiCirclePlus /> Add Project</Link>
+                    <Link to="/project/create" className="btn btn-success btn-sm btn-rounded" style={{ float: 'right' }}><CiCirclePlus /> Add Project</Link>
                   </h3>
                 </div>
               </div>
@@ -56,6 +63,7 @@ function Projects() {
                           </tr>
                         </thead>
                         <tbody>
+                        {isLoading && <div className='loader'></div>}
                           {projects.map((project, key) => {
                             return (
                               <tr key={key}>
