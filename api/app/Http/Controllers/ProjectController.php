@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -34,12 +35,28 @@ class ProjectController extends Controller
             'description' => 'nullable|string',
             'due_date' => 'nullable|date',
             'status' => 'required|string|max:255',
-            'image_path' => 'nullable|string',
+            'image_path' => 'required|image|mimes:jpg,png,jpeg|max:2048',
             'created_by' => 'required|exists:users,id',
             'updated_by' => 'required|exists:users,id'
         ]);
 
+        
+
         try{
+            if($request->image_path)
+            {
+                $file = $request->file('image_path');
+                $type = $file->extension();
+                $generated_name = $request->name . uniqid() . date("Ymd") . '.' . $type;
+
+                // Move file to storage
+                $file->move(public_path('projects'), $generated_name);
+
+                // Set image_path in validated data
+                $validated['image_path'] = 'projects/' . $generated_name;
+            }
+               
+            
 
             $project = Project::create($validated);
             return response([
