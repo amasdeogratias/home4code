@@ -7,6 +7,7 @@ import './project.css';
 
 
 function Projects() {
+  const [error, setError] = useState()
   const [isLoading, setIsLoading] = useState(false);
   const [projects, setProjects] = useState([]);
 
@@ -21,12 +22,16 @@ function Projects() {
       })
       .catch(error => {
         console.log('Error fetching data:', error);
+        setError(error);
         
       })
     };
     fetchProjects();
   },[])
 
+  if(!localStorage.getItem('token')){
+    return window.location.href='/sign-in' 
+}
   
 
   return (
@@ -64,6 +69,7 @@ function Projects() {
                         </thead>
                         <tbody>
                         {isLoading && <div className='loader'></div>}
+                        {error && <tr>Something happened, try again later</tr>}
                           {projects.map((project, key) => {
                             return (
                               <tr key={key}>
