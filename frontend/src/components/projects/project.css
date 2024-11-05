@@ -18,3 +18,9 @@
         transform: rotate(360deg);
     }
 }
+
+/* custom style for react quill */
+.ql-editor {
+    overflow: scroll;
+    height: 8rem !important;
+}

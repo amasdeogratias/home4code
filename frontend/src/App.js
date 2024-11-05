@@ -17,6 +17,7 @@ import EditTask from './components/tasks/EditTask'
 import axios from 'axios'
 import ViewTask from './components/tasks/ViewTask'
 import Projects from './components/projects/Projects'
+import CreateProject from './components/projects/CreateProject';
 
 
 class App extends Component {
@@ -63,6 +64,7 @@ class App extends Component {
                   <Route exact path="/edit-task/:task_id" element = {<EditTask/>}/>
                   <Route exact path="/view-task/:task_id" element = {<ViewTask user = {this.state.user}/>}/>
                   <Route exact path="/projects" element = {<Projects user = {this.state.user}/>}/>
+                  <Route exact path="/project/create" element = {<CreateProject user={this.state.user} />}/>
                 </Routes>
             
           </div>
