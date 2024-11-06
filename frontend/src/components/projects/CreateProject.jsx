@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaList } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import ReactQuill from 'react-quill';
@@ -10,6 +10,8 @@ import { useNavigate } from 'react-router-dom';
 
 function CreateProject(props) {
     const navigate = useNavigate();
+    const [message, setMessage] = useState('');
+    const [error, setError] = useState();
     const [formData, setFormData] = useState({
         name: '',
         description: '',
@@ -20,9 +22,11 @@ function CreateProject(props) {
         updated_by: props.user.id
     });
 
-    if (!localStorage.getItem('token')) {
-        navigate('/sign-in');
-    }
+    useEffect(() => {
+        if (!localStorage.getItem('token')) {
+            navigate('/sign-in');
+        }
+    }, [navigate]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -43,7 +47,7 @@ function CreateProject(props) {
         toolbar: [
           [{'header':[1, 2, 3, 4, 5, 6, false] }],
           ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-          [{'list': 'ordered'}, {'list': 'bullet'}, {'ident': '-1'}, {'ident': '+1'}],
+          [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}]
           ['link', 'image'],
           ['clean']
         ]
@@ -70,6 +74,7 @@ function CreateProject(props) {
             },
         })
         .then((response) => {
+            setMessage(response.data.message);
             setFormData({
                 name: '',
                 description: '',
@@ -79,11 +84,11 @@ function CreateProject(props) {
                 created_by: props.user.id,
                 updated_by: props.user.id
             });
-            console.log(response);
             
         })
         .catch((error) => {
             console.log(error);
+            setError(error);
             
         })
       }
@@ -108,7 +113,9 @@ function CreateProject(props) {
                         <div className="col-md-12">
                             <div className="card mb-4">
                                 <div className="card-header">
-                                    <h4>Added successfully</h4>
+                                    <h3 className='card-title'></h3>
+                                    {message && <div className="alert alert-success">{message}</div>}
+                                    {error && <div className="alert alert-danger">{error.message || "An error occurred"}</div>}
                                 </div>
                                 <div className="card-body">
                                     <form onSubmit={handleFormSubmit} encType='multipart/form-data'>
