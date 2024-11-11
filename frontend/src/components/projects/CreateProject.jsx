@@ -17,7 +17,7 @@ function CreateProject(props) {
         description: '',
         due_date: '',
         status: '',
-        image_path: '',
+        image_path: null,
         created_by: props.user.id,
         updated_by: props.user.id
     });
@@ -58,39 +58,43 @@ function CreateProject(props) {
         'bold', 'italic', 'underline', 'strike','blockquote',
         'list', 'bullet', 'indent', 'link', 'image'
       ];
+      
 
-      const handleFormSubmit = (e) => {
+      const handleFormSubmit = async (e) => {
         e.preventDefault();
+        setMessage('');
+        setError(null);
         const formDataToSend = new FormData();
+        const token = localStorage.getItem('token');
+        
 
         // Append other fields
         for (const [key, value] of Object.entries(formData)) {
             formDataToSend.append(key, value);
         }
+        try {
+            const response = await axios.post('/projects', formDataToSend, 
+            {
+                // withCredentials: true,
+                headers: {"Content-Type": "multi-part/formdata"}
 
-        axios.post('/projects', formDataToSend, {
-            headers: {
-                "Content-Type": 'multipart/form-data'
-            },
-        })
-        .then((response) => {
-            setMessage(response.data.message);
-            setFormData({
-                name: '',
-                description: '',
-                due_date: '',
-                status: '',
-                image_path: '',
-                created_by: props.user.id,
-                updated_by: props.user.id
             });
-            
-        })
-        .catch((error) => {
-            console.log(error);
+            if(response){
+                setMessage(response.data.message);
+                setFormData({
+                    name: '',
+                    description: '',
+                    due_date: '',
+                    status: '',
+                    image_path: '',
+                    created_by: props.user.id,
+                    updated_by: props.user.id
+                });
+            }
+
+        }catch(error){
             setError(error);
-            
-        })
+        }
       }
 
 
