@@ -24,3 +24,31 @@
     overflow: scroll;
     height: 8rem !important;
 }
+
+/*Pagination styles*/
+
+.pagination .backbtn{
+    transform:rotate(180deg);
+}
+
+.pagination button {
+    border-radius: 50%;
+    border: none;
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+.pagination button.active{
+    background:var(--bs-primary);
+    color:var(--bs-white);
+}
+.pagination button.nextbtn svg,
+.pagination button.backbtn svg{
+    width:18px;
+    height:18px;
+}
+.pagination button[disabled]{
+    color:var(--bs-dark);
+}

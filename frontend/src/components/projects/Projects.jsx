@@ -4,12 +4,28 @@ import axios from 'axios'
 import { CiCirclePlus } from "react-icons/ci";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import './project.css';
+import Pagination from '../Pagination';
 
 
 function Projects() {
   const [error, setError] = useState()
   const [isLoading, setIsLoading] = useState(false);
   const [projects, setProjects] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const projectsPerPage = 8;
+
+  const indexOfLastProject = currentPage * projectsPerPage;
+  const indexOfFirstProject = indexOfLastProject - projectsPerPage;
+  const currentProjects = projects.slice(indexOfFirstProject, indexOfLastProject);
+
+  const totalPages = Math.ceil(projects.length / projectsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    if (pageNumber >= 1 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber);
+    }
+  };
 
   useEffect(() => {
     const fetchProjects = () => {
@@ -70,7 +86,7 @@ function Projects() {
                         <tbody>
                         {isLoading && <div className='loader'></div>}
                         {error && <tr>Something happened, try again later</tr>}
-                          {projects.map((project, key) => {
+                          {currentProjects.map((project, key) => {
                             return (
                               <tr key={key}>
                                 <td>{key + 1}</td>
@@ -88,6 +104,11 @@ function Projects() {
                           })}
                         </tbody>
                       </table>
+                      <Pagination
+                        totalPages={totalPages}
+                        currentPage={currentPage}
+                        handlePageChange={handlePageChange}
+                      />
                     </div>
                   </div>
                 </div>
