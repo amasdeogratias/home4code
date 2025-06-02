@@ -12,21 +12,26 @@ class Login extends Component {
   
   formSubmit = async (e) => {
     e.preventDefault();
+
+    const { email, password } = this.state;
     try {
-      const response = await axios.post('/login', {
-        email: this.state.email,
-        password: this.state.password
-      });
-      console.log(response);
-      localStorage.setItem('token', response.data.token);
+      const response = await axios.post('/login', { email, password });
+
+      const { token, user } = response.data;
+
+      localStorage.setItem('token', token);
+
       this.setState({
         loggedIn: true
       });
-    this.props.setUser(response.data.user);
+    this.props.setUser(user);
     window.location.href = '/profile';
     } catch (error) {
-      console.log(error.response.data.message);
-      this.setState({ message: error.response.data.message });
+      const errorMsg = error?.response?.data?.message || 'An unexpected error occurred';
+
+    // Set local state with error message
+    this.setState({ message: errorMsg });
+    
       Swal.fire({
         title: "Warning",
         text: error.response.data.message,
