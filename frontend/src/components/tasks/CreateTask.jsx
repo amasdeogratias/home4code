@@ -172,11 +172,11 @@ class CreateTask extends Component {
                         <div className="form-group col-md-6">
                           <label htmlFor="duration"></label>
                           <input 
-                            type="text" 
+                            type="number" 
                             name="duration" 
                             id="duration"
                             className="form-control"
-                            placeholder="Enter duration"
+                            placeholder="Enter duration(in days)"
                             required
                             onChange={e=> {this.setState({duration:e.target.value})}}
                           />
