@@ -9,12 +9,11 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Mail\ForgetPasswordMail;
-use Mail;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class SendEmail implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Queueable, SerializesModels, InteractsWithQueue;
     protected $details;
 
     /**
