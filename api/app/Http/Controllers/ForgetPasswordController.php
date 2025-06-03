@@ -34,6 +34,7 @@ class ForgetPasswordController extends Controller
 
 
         try{
+            DB::table('password_reset_tokens')->where('email', $request->email)->delete();
             DB::table('password_reset_tokens')->insert(
                 [
                     'email' => $request->email,
@@ -48,7 +49,7 @@ class ForgetPasswordController extends Controller
                 'email' => $request->email,
                 'token' => $token
             ];
-            SendEmail::dispatch($details)->delay(5);
+            dispatch(new SendEmail($details))->delay(now()->addSeconds(10));
 
             return response()->json([
                 'message' => 'Reset Password email sent to your email'

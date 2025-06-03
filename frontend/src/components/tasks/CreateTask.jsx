@@ -22,6 +22,32 @@ class CreateTask extends Component {
         message: '',
        
     };
+
+    //calculate duration from start date and end date
+    calculateDuration = () => {
+      const { start_date, end_date } = this.state;
+
+      //validate
+      if(start_date && end_date) {
+        const start = new Date(start_date);
+        const end = new Date(end_date);
+
+        if(!isNaN(start) && !isNaN(end)) {
+          const diffTime = end - start;
+          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+          this.setState({ duration: diffDays });
+        }
+
+      }else {
+      this.setState({ duration: '' }); // Clear duration if dates are not fully selected
+    }
+    }
+
+    handleDateChange = (e) => {
+      this.setState({ [e.target.name]: e.target.value }, () => {
+        this.calculateDuration(); // Call calculateDuration after state is updated
+      });
+    }
     
     componentDidMount() {
       this.fetchUsers();
@@ -154,7 +180,8 @@ class CreateTask extends Component {
                             className="form-control"
                             placeholder="Enter start date"
                             required
-                            onChange={e=> {this.setState({start_date:e.target.value})}}
+                            min={new Date().toISOString().split("T")[0]}
+                            onChange={this.handleDateChange}
                           />
                         </div>
                         <div className="form-group col-md-6">
@@ -166,7 +193,8 @@ class CreateTask extends Component {
                             className="form-control"
                             placeholder="Enter end date"
                             required
-                            onChange={e=> {this.setState({end_date:e.target.value})}}
+                            min={this.state.start_date || new Date().toISOString().split("T")[0]}
+                            onChange={this.handleDateChange}
                           />
                         </div>
                         <div className="form-group col-md-6">
@@ -178,7 +206,8 @@ class CreateTask extends Component {
                             className="form-control"
                             placeholder="Enter duration(in days)"
                             required
-                            onChange={e=> {this.setState({duration:e.target.value})}}
+                            readOnly
+                            value={this.state.duration}
                           />
                         </div>
                         <div className="form-check col-md-6 mt-5">
