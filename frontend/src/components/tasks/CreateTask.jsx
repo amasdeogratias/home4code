@@ -180,6 +180,7 @@ class CreateTask extends Component {
                             className="form-control"
                             placeholder="Enter start date"
                             required
+                            min={new Date().toISOString().split("T")[0]}
                             onChange={this.handleDateChange}
                           />
                         </div>
@@ -192,6 +193,7 @@ class CreateTask extends Component {
                             className="form-control"
                             placeholder="Enter end date"
                             required
+                            min={this.state.start_date || new Date().toISOString().split("T")[0]}
                             onChange={this.handleDateChange}
                           />
                         </div>
@@ -204,6 +206,7 @@ class CreateTask extends Component {
                             className="form-control"
                             placeholder="Enter duration(in days)"
                             required
+                            readOnly
                             value={this.state.duration}
                           />
                         </div>
